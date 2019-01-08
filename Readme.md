@@ -128,20 +128,15 @@ Pictures below show exported metrics plots from the Tensorboard.
 ![](images/pixel_difference.png)
 Pictures bellow as well exported from the Tensorboard and show generated prediction masks for validation set on different iterations. Top rows of the pictures are generated masks, bottom rows are labels.
 
-### Step 200
-<img src="images/step200.png" width="800"/>
 
-### Step 300
-<img src="images/step300.png" width="800"/>
-
-### Step 400
-<img src="images/step400.png" width="800"/>
-
-### Step 2100
-<img src="images/step2100.png" width="800"/>
-
-### Step 3000
-<img src="images/step3000.png" width="800"/>
+|  Step  |  Images  |
+|--------|----------|
+| labels | <img src="images/labels.png" width="400"/>|
+| 200 | <img src="images/step200.png" width="800"/>|
+| 300| <img src="images/step300.png" width="800"/>|
+| 400 | <img src="images/step400.png" width="800"/>|
+| 2100| <img src="images/step2100.png" width="800"/>|
+| 3000|<img src="images/step3000.png" width="800"/>|
 
 ## Results
 Picture below shows results achieved after 3 epochs (1000 iterations each). The first row contains original images from the test set, the second - corresponded labels, and the third - generated masks.
