@@ -13,7 +13,7 @@ Following dataset is used: [ISBI Challenge: Segmentation of neuronal structures 
 Originaly U-net neural network architecture was proposed here: [U-Net: Convolutional Networks for Biomedical
 Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf). Symmetrical architecture used in https://github.com/zhixuhao/unet is used for the training since sizes of input images and output masks are the same. It is achieve by usin of 'same' padding instead of 'valid'.
 
-![](unet.png)
+![](images/unet.png)
 
 ## Implementation
 ### Metrics
@@ -115,6 +115,34 @@ class ImageHistory(keras.callbacks.Callback):
         writer.close()        
 ```
 
+## Training
+Pictures below show exported metrics plots from the Tensorboard.
+
+### Loss function
+![](images/loss.png)
+
+### Accuracy
+![](images/acc.png)
+
+### Pixelwise difference
+![](images/pixel_difference.png)
+Pictures bellow as well exported from the Tensorboard and show generated prediction masks for validation set on different iterations. Top rows of the pictures are generated masks, bottom rows are labels.
+
+### Step 200
+<img src="images/step200.png" width="800"/>
+
+### Step 300
+<img src="images/step300.png" width="800"/>
+
+### Step 400
+<img src="images/step400.png" width="800"/>
+
+### Step 2100
+<img src="images/step2100.png" width="800"/>
+
+### Step 3000
+<img src="images/step3000.png" width="800"/>
+
 ## Results
 Picture below shows results achieved after 3 epochs (1000 iterations each). The first row contains original images from the test set, the second - corresponded labels, and the third - generated masks.
-![](u-net.png)
+![](images/unet_results.png)
