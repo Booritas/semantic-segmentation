@@ -131,7 +131,7 @@ Pictures bellow as well exported from the Tensorboard and show generated predict
 
 |  Step  |  Images  |
 |--------|----------|
-| labels | <img src="images/labels.png" width="400"/>|
+| labels | <img src="images/labels.png" width="800"/>|
 | 200 | <img src="images/step200.png" width="800"/>|
 | 300| <img src="images/step300.png" width="800"/>|
 | 400 | <img src="images/step400.png" width="800"/>|
