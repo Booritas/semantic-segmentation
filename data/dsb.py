@@ -10,8 +10,8 @@ from sklearn.cluster import KMeans
 
 class DataScienceBowl2018(Dataset):
     
-    def __init__(self, directory):
-        self.directory = directory
+    def __init__(self, dataset_path):
+        self.directory = dataset_path
         self.train_file_path = os.path.join(self.directory,'stage1_train.zip')
         self.data_path = os.path.join(self.directory,'data')
         prepared_data_path = os.path.join(self.directory,'prepared_data')

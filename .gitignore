@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# project specific
+data/datasets/*
+!data/datasets/isbi-2012/*
+Untitled*.*
+*.hdf5
+logs*/*
