@@ -12,6 +12,9 @@ The dataset contains images of different sizes. The smallest image is 256x256 pi
 ### Image brightness
 Dataset contains images of different brightness. Images with high brightness show nuclei as dark spots, images with low brightness show nuclei as bright spots. In order to mitgate the difference, images with mean intensity more than 80 are inverted.
 
+### Training, validation and test sets
+
+
 ## Network architecture
 Originaly U-net neural network architecture was proposed here: [U-Net: Convolutional Networks for Biomedical
 Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf). Symmetrical architecture used in https://github.com/zhixuhao/unet is used for the training since sizes of input images and output masks are the same. It is achieve by usin of 'same' padding instead of 'valid'.
