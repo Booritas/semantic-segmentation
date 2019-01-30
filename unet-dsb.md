@@ -20,3 +20,22 @@ Originaly U-net neural network architecture was proposed here: [U-Net: Convoluti
 Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf). Symmetrical architecture used in https://github.com/zhixuhao/unet is used for the training since sizes of input images and output masks are the same. It is achieve by usin of 'same' padding instead of 'valid'.
 
 ![](images/unet-dsb.png)
+
+### Training
+
+Picture below shows evolution of the prediction masks generated during the training on different steps. The last row shows manual annotation
+
+![](images/dsb-masks.png)
+
+Loss plot
+
+![](images/unet-dsb-loss.png)
+
+Accuracy plot
+
+![](images/unet-dsb-acc.png)
+
+Pixel difference plot
+
+![](images/unet-dsb-pix.png)
+
