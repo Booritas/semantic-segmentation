@@ -10,10 +10,14 @@ The dataset contains images of different sizes. The smallest image is 256x256 pi
 ![](images/dsb-tiling.png)
 
 ### Image brightness
-Dataset contains images of different brightness. Images with high brightness show nuclei as dark spots, images with low brightness show nuclei as bright spots. In order to mitgate the difference, images with mean intensity more than 80 are inverted.
+Dataset contains images of different brightness. Images with high brightness show nuclei as dark spots, images with low brightness show nuclei as bright spots. In order to mitgate the difference, images with mean intensity more than 80 are inverted. All images are converted to grayscale
+![](images/dsb.png)
 
 ### Training, validation and test sets
 
+In order to achieve equal distribution of images with different brightness, density of nuclei, we compute image standard statistics: min, max, mean and standard deviation and execute clustering algoritm to split the dataset to several clusters according to their statistics. For details see [Dataset notebook](data/data-science-bowl.ipynb) Training, validation and test datasets are created with equal proportions of different clusters.
+Image below shows several rows of images. Each row represents a cluster.
+![](images/dsb-clusters.png)
 
 ## Network architecture
 Originaly U-net neural network architecture was proposed here: [U-Net: Convolutional Networks for Biomedical
@@ -22,8 +26,8 @@ Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf). Symmetrical architect
 ![](images/unet-dsb.png)
 
 ### Training
-
-Picture below shows evolution of the prediction masks generated during the training on different steps. The last row shows manual annotation
+Training of the model was done using Adam optimizer with learning rate 1.e-4. 
+Picture below shows evolution of the prediction masks generated during the training on different steps. The last row shows manual annotation.
 
 ![](images/dsb-masks.png)
 
@@ -39,3 +43,19 @@ Pixel difference plot
 
 ![](images/unet-dsb-pix.png)
 
+## Results
+
+After 3 epochs 4000 steps each, the training loss dropped to 0.006, validation loss dropped to 0.14. Accuracy of the training dataset achieved 0.9975, accuracy of the validation dataset - 0.98.
+Picture below shows result of prediction of several images from the test dataset (first row is image, second - prediction, third - annotation) :
+
+![](images/unet-dsb-test.png)
+
+Error distribution over the test dataset. As the error here we take percentage of wrongly predicted pixels.
+
+![](images/unet-dsb-test.png)
+
+Following picture shows prediction, annotation and pixel difference between prediction and annotation for images with the largest pixel difference between prediction and annotation (more than 6%):
+
+![](images/unet-dsb-diff.png)
+
+Despite of relatively large amount of pixel different in annotation and predicted mask, quality of the generated segmentation is not so bad. Most difference appear on diffuse nucleus border and on overlapping nuclei. Nevertheless all nuclei were detected.
