@@ -67,15 +67,15 @@ class ImageHistory(keras.callbacks.Callback):
         image.save(output, format='PNG')
         image_string = output.getvalue()
         output.close()
-        return tf.Summary.Image(height=height, width=width, colorspace=channel,
+        return tf.compat.v1.Summary.Image(height=height, width=width, colorspace=channel,
                              encoded_image_string=image_string)
     
     def saveToTensorBoard(self, npyfile, tag, epoch):
         data = npyfile[0,:,:,:]
         image = (((data - data.min()) * 255) / (data.max() - data.min())).astype(np.uint8)
         image = self.make_image(image)
-        summary = tf.Summary(value=[tf.Summary.Value(tag=tag, image=image)])
-        writer = tf.summary.FileWriter(self.tensor_board_dir)
+        summary = tf.compat.v1.Summary(value=[tf.compat.v1.Summary.Value(tag=tag, image=image)])
+        writer = tf.compat.v1.summary.FileWriter(self.tensor_board_dir)
         writer.add_summary(summary, epoch)
         writer.close()        
     
