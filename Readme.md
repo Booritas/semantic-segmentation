@@ -6,5 +6,5 @@ The repository contains Keras/Tensorflow implementation or u-net neural network 
 
 
 For more detailed description see corresponded markdown files:
-- [ISBI dataset](unet-isbi.md)
-- [Data Science Bowl 2018 kaggle dataset](unet-dsb.md)
+- [Processing of ISBI Challenge 2012 dataset with using U-net neural network](unet-isbi.md)
+- [Processing of Data Science Bowl 2018 kaggle dataset with using U-net neural network](unet-dsb.md)
