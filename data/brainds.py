@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 import random
+import fnmatch
 
 class BrainTumorDataset(Dataset):
     def __init__(self, dataset_path):
@@ -23,6 +24,7 @@ class BrainTumorDataset(Dataset):
         self.max_file_index = 3065
         self.image_dir_name = "images"
         self.mask_dir_name = "masks"
+        self.counts = {}
     def download(self):
         '''
         Downloads data from the dataset url to directory for the original raw data.
@@ -174,6 +176,9 @@ class BrainTumorDataset(Dataset):
             train_set.extend(train)
             test_set.extend(test)
             valid_set.extend(validate)
+        self.counts['training'] = len(train_set)
+        self.counts['validation'] = len(valid_set)
+        self.counts['test'] = len(test_set)
         return train_set, test_set, valid_set
     
     def prepare_dataset(self, paths, directory):
@@ -196,14 +201,8 @@ class BrainTumorDataset(Dataset):
             image = (image.astype(np.float) - min_val)/abs_max
             np.save(image_path, image)
             np.save(mask_path, mask)
-        
-    def prepare(self, test_frac=0.1, valid_frac=0.1):
-        train, test, valid = self.split_for_training(test_frac, valid_frac)
-        self.prepare_dataset(train, self.directory_train)
-        self.prepare_dataset(test, self.directory_test)
-        self.prepare_dataset(valid, self.directory_valid)
-        
-    def generator(self, mode='training', batch_size=1):
+            
+    def get_set_dir(self, mode):
         directory = ""
         if mode == 'training':
             directory = self.directory_train
@@ -213,13 +212,34 @@ class BrainTumorDataset(Dataset):
             directory = self.directory_valid
         else:
             raise Exception("Unknown mode")
+        return directory
+            
+    def get_dataset_size(self, mode):
+        image_dir = os.path.join(self.get_set_dir(mode), self.image_dir_name)
+        number_files = len(fnmatch.filter(os.listdir(image_dir), '*.npy'))
+        return number_files
+        
+    def prepare(self, test_frac=0.1, valid_frac=0.1):
+        train, test, valid = self.split_for_training(test_frac, valid_frac)
+        self.prepare_dataset(train, self.directory_train)
+        self.prepare_dataset(test, self.directory_test)
+        self.prepare_dataset(valid, self.directory_valid)
+        
+    def generator(self, mode='training', batch_size=1):
+        directory = self.get_set_dir(mode)
         image_dir = os.path.join(directory, self.image_dir_name)
         mask_dir = os.path.join(directory, self.mask_dir_name)
         image_files = [file for file in os.listdir(image_dir) if os.path.isfile(os.path.join(image_dir, file))]
         count = 0
         images = []
         masks = []
-        for name in image_files:
+        file_count = len(image_files)
+        index = 0
+        while(True):
+            name = image_files[index]
+            index += 1
+            if index>= file_count:
+                index = 0
             image = np.load(os.path.join(image_dir, name))
             mask = np.load(os.path.join(mask_dir, name))
             images.append(image)
@@ -232,6 +252,7 @@ class BrainTumorDataset(Dataset):
                 images = []
                 masks = []
                 yield(npim, npmsk)
+            
         
     def show_training_data(self, mode='training', rows=10, picture_size=6):
         data_gen = self.generator(mode)
